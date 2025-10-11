@@ -32,11 +32,11 @@ nonisolated final class FirstRIBComponent: Component<FirstRIBDependency>, Second
 
 // MARK: - Builder
 
-protocol FirstRIBBuildable: Buildable {
+nonisolated protocol FirstRIBBuildable: Buildable {
     func build(withListener listener: FirstRIBListener) -> FirstRIBRouting
 }
 
-nonisolated final class FirstRIBBuilder: Builder<FirstRIBDependency>, FirstRIBBuildable {
+ final class FirstRIBBuilder: Builder<FirstRIBDependency>, FirstRIBBuildable {
 
     override init(dependency: FirstRIBDependency) {
         super.init(dependency: dependency)

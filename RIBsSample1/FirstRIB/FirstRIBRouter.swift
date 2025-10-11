@@ -6,17 +6,18 @@
 //
 
 import RIBs
+import UIKit
 
 protocol FirstRIBInteractable: Interactable, SecondRIBListener, ThirdRIBListener {
-    var router: FirstRIBRouting? { get set }
+    nonisolated var router: FirstRIBRouting? { get set }
     var listener: FirstRIBListener? { get set }
 }
 
 protocol FirstRIBViewControllable: ViewControllable, SecondRIBViewControllable {
-    func attachThirRIBViewController(_ viewController: ViewControllable)
+    func attachThirRIBViewController(_ viewController: UIViewController)
 }
 
-nonisolated final class FirstRIBRouter: ViewableRouter<FirstRIBInteractable, FirstRIBViewControllable>, FirstRIBRouting {
+final class FirstRIBRouter: ViewableRouter<FirstRIBInteractable, FirstRIBViewControllable>, FirstRIBRouting {
     
     private let secondRIBBuilder: SecondRIBBuildable
     private var secondRIBRouter: SecondRIBRouting?
@@ -29,7 +30,7 @@ nonisolated final class FirstRIBRouter: ViewableRouter<FirstRIBInteractable, Fir
         self.secondRIBBuilder = secondRIBBuilder
         self.thirdRIBBuilder = thirdRIBBuilder
         super.init(interactor: interactor, viewController: viewController)
-//        interactor.router = self
+        interactor.router = self
     }
     
     func routeToSecondRIB() {
@@ -47,8 +48,13 @@ nonisolated final class FirstRIBRouter: ViewableRouter<FirstRIBInteractable, Fir
     func routeToThirdRIB() {
         let thirdRIBRouter = thirdRIBBuilder.build(withListener: interactor)
         self.thirdRIBRouter = thirdRIBRouter
-        let thirdRIBViewControllable = thirdRIBRouter.viewControllable
+        nonisolated(unsafe) let thirdRIBViewControllable = thirdRIBRouter.viewControllable
         attachChild(thirdRIBRouter)
+        
+        nonisolated(unsafe) let viewController = self.viewController
+        Task { @MainActor in
+            viewController.attachThirRIBViewController(thirdRIBViewControllable.uiviewController)
+        }
 //        viewController.attachThirRIBViewController(thirdRIBViewControllable)
 //        viewController.uiviewController.navigationController?.pushViewController(thirdRIBViewControllable.uiviewController, animated: true)
     }

@@ -19,8 +19,8 @@ nonisolated final class ThirdRIBComponent: Component<ThirdRIBDependency> {
 
 // MARK: - Builder
 
-protocol ThirdRIBBuildable: Buildable {
-    nonisolated func build(withListener listener: ThirdRIBListener) -> ThirdRIBRouting
+nonisolated protocol ThirdRIBBuildable: Buildable {
+    func build(withListener listener: ThirdRIBListener) -> ThirdRIBRouting
 }
 
 nonisolated final class ThirdRIBBuilder: Builder<ThirdRIBDependency>, ThirdRIBBuildable {

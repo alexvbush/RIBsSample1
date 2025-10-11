@@ -27,11 +27,18 @@ final class FirstRIBViewController: UIViewController, FirstRIBPresentable, First
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        view.backgroundColor = .systemGreen
+    }
+    
     func presentStuff() {
         
     }
     
-    func attachThirRIBViewController(_ viewController: ViewControllable) {
-        navigationController?.pushViewController(viewController.uiviewController, animated: true)
+    func attachThirRIBViewController(_ viewController: UIViewController) {
+//        navigationController?.pushViewController(viewController, animated: true)
+        present(viewController, animated: true)
     }
 }
