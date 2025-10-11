@@ -13,7 +13,7 @@ protocol FirstRIBDependency: Dependency {
 }
 
 nonisolated final class FirstRIBComponent: Component<FirstRIBDependency>, SecondRIBDependency, ThirdRIBDependency {
-    var SecondRIBViewController: any SecondRIBViewControllable {
+    var secondRIBViewController: any SecondRIBViewControllable {
         viewController
     }
     

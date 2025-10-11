@@ -49,7 +49,7 @@ nonisolated final class FirstRIBRouter: ViewableRouter<FirstRIBInteractable, Fir
         self.thirdRIBRouter = thirdRIBRouter
         let thirdRIBViewControllable = thirdRIBRouter.viewControllable
         attachChild(thirdRIBRouter)
-        viewController.attachThirRIBViewController(thirdRIBViewControllable)
+//        viewController.attachThirRIBViewController(thirdRIBViewControllable)
 //        viewController.uiviewController.navigationController?.pushViewController(thirdRIBViewControllable.uiviewController, animated: true)
     }
     

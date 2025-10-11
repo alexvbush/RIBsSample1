@@ -23,8 +23,8 @@ protocol ThirdRIBListener: AnyObject {
 
 final class ThirdRIBInteractor: PresentableInteractor<ThirdRIBPresentable>, ThirdRIBInteractable, ThirdRIBPresentableListener {
 
-    weak var router: ThirdRIBRouting?
-    weak var listener: ThirdRIBListener?
+    nonisolated weak var router: ThirdRIBRouting?
+    nonisolated weak var listener: ThirdRIBListener?
 
     // TODO: Add additional dependencies to constructor. Do not perform any logic
     // in constructor.

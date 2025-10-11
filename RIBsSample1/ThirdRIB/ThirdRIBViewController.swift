@@ -17,7 +17,7 @@ protocol ThirdRIBPresentableListener: AnyObject {
 
 final class ThirdRIBViewController: UIViewController, ThirdRIBPresentable, ThirdRIBViewControllable {
 
-    weak var listener: ThirdRIBPresentableListener?
+    nonisolated(unsafe) weak var listener: ThirdRIBPresentableListener?
     
     init() {
         super.init(nibName: nil, bundle: nil)

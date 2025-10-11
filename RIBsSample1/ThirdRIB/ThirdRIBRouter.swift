@@ -8,7 +8,7 @@
 import RIBs
 
 protocol ThirdRIBInteractable: Interactable {
-    var router: ThirdRIBRouting? { get set }
+    nonisolated var router: ThirdRIBRouting? { get set }
     var listener: ThirdRIBListener? { get set }
 }
 

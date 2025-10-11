@@ -9,7 +9,7 @@ import RIBs
 
 protocol SecondRIBDependency: Dependency {
     // TODO: Make sure to convert the variable into lower-camelcase.
-    var SecondRIBViewController: SecondRIBViewControllable { get }
+    nonisolated var secondRIBViewController: SecondRIBViewControllable { get }
     // TODO: Declare the set of dependencies required by this RIB, but won't be
     // created by this RIB.
 }
@@ -17,8 +17,8 @@ protocol SecondRIBDependency: Dependency {
 nonisolated final class SecondRIBComponent: Component<SecondRIBDependency> {
 
     // TODO: Make sure to convert the variable into lower-camelcase.
-    fileprivate var SecondRIBViewController: SecondRIBViewControllable {
-        return dependency.SecondRIBViewController
+    nonisolated fileprivate var secondRIBViewController: SecondRIBViewControllable {
+        return dependency.secondRIBViewController
     }
 
     // TODO: Declare 'fileprivate' dependencies that are only used by this RIB.
@@ -27,7 +27,7 @@ nonisolated final class SecondRIBComponent: Component<SecondRIBDependency> {
 // MARK: - Builder
 
 protocol SecondRIBBuildable: Buildable {
-    func build(withListener listener: SecondRIBListener) -> SecondRIBRouting
+    nonisolated func build(withListener listener: SecondRIBListener) -> SecondRIBRouting
 }
 
 final class SecondRIBBuilder: Builder<SecondRIBDependency>, SecondRIBBuildable {
@@ -40,6 +40,6 @@ final class SecondRIBBuilder: Builder<SecondRIBDependency>, SecondRIBBuildable {
         let component = SecondRIBComponent(dependency: dependency)
         let interactor = SecondRIBInteractor()
         interactor.listener = listener
-        return SecondRIBRouter(interactor: interactor, viewController: component.SecondRIBViewController)
+        return SecondRIBRouter(interactor: interactor, viewController: component.secondRIBViewController)
     }
 }

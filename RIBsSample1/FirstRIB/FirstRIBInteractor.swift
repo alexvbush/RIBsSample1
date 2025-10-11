@@ -15,10 +15,10 @@ nonisolated protocol FirstRIBRouting: ViewableRouting {
     func routeAwayFromThirdRIB()
 }
 
-//protocol FirstRIBPresentable: Presentable where Listener == FirstRIBPresentableListener {
-protocol FirstRIBPresentable: Presentable {
+protocol FirstRIBPresentable: Presentable where Listener == FirstRIBPresentableListener {
+//protocol FirstRIBPresentable: Presentable {
 //    var listener: FirstRIBPresentableListener? { get set }
-    nonisolated var listener: FirstRIBPresentableListener? { get set }
+//    nonisolated var listener: FirstRIBPresentableListener? { get set }
 
     func presentStuff()
 }
@@ -58,12 +58,12 @@ final class FirstRIBInteractor: PresentableInteractor<FirstRIBPresentable>, Firs
 //                        }
 //                    }
                 
-                Task { @MainActor [weak self] in
-                    guard let self else { return }
-                    self.presenter.presentStuff()
-                }
+//                Task { @MainActor [weak self] in
+//                    guard let self else { return }
+//                    self.presenter.presentStuff()
+//                }
                 
-                
+                self.presenter.presentStuff()
                 
             }).disposeOnDeactivate(interactor: self)
     }

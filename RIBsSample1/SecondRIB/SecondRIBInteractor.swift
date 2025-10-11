@@ -8,7 +8,7 @@
 import RIBs
 import RxSwift
 
-protocol SecondRIBRouting: Routing {
+nonisolated protocol SecondRIBRouting: Routing {
     func cleanupViews()
     // TODO: Declare methods the interactor can invoke to manage sub-tree via the router.
 }
@@ -17,10 +17,10 @@ protocol SecondRIBListener: AnyObject {
     // TODO: Declare methods the interactor can invoke to communicate with other RIBs.
 }
 
-final class SecondRIBInteractor: Interactor, SecondRIBInteractable {
+nonisolated final class SecondRIBInteractor: Interactor, SecondRIBInteractable {
 
     weak var router: SecondRIBRouting?
-    weak var listener: SecondRIBListener?
+    nonisolated weak var listener: SecondRIBListener?
 
     // TODO: Add additional dependencies to constructor. Do not perform any logic
     // in constructor.
