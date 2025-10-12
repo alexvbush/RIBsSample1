@@ -24,6 +24,10 @@ final class FirstRIBRouter: ViewableRouter<FirstRIBInteractable, FirstRIBViewCon
     
     private let thirdRIBBuilder: ThirdRIBBuildable
     private var thirdRIBRouter: ThirdRIBRouting?
+    
+    var firstRIBViewControllable: FirstRIBViewControllable {
+        viewController
+    }
 
     init(interactor: FirstRIBInteractable, viewController: FirstRIBViewControllable,
          secondRIBBuilder: SecondRIBBuildable, thirdRIBBuilder: ThirdRIBBuildable) {
@@ -60,6 +64,15 @@ final class FirstRIBRouter: ViewableRouter<FirstRIBInteractable, FirstRIBViewCon
     }
     
     func routeAwayFromThirdRIB() {
-        
+        print("routeAwayFromThirdRIB")
+        if let thirdRIBRouter = thirdRIBRouter {
+            self.thirdRIBRouter = nil
+            nonisolated(unsafe) let viewController = self.viewController
+            Task { @MainActor in
+//                viewController.uiviewController.navigationController?.popToViewController(viewController.uiviewController, animated: true)
+                viewController.uiviewController.dismiss(animated: true)
+            }
+            detachChild(thirdRIBRouter)
+        }
     }
 }

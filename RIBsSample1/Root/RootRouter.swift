@@ -15,6 +15,7 @@ protocol RootInteractable: Interactable, FirstRIBListener {
 
 protocol RootViewControllable: ViewControllable {
     func embedFirstRIBViewController(_ viewController: UIViewController)
+    func embedFirstRIBViewController2(_ firstViewControllable: FirstRIBViewControllable)
 }
 
 final class RootRouter: LaunchRouter<RootInteractable, RootViewControllable>, RootRouting {
@@ -42,7 +43,10 @@ final class RootRouter: LaunchRouter<RootInteractable, RootViewControllable>, Ro
         nonisolated(unsafe) let viewController = self.viewController
         Task { @MainActor in
             viewController.embedFirstRIBViewController(firstRIBViewControllable.uiviewController)
+//            viewController.embedFirstRIBViewController2(firstRIBViewControllable)
         }
         attachChild(firstRIBRouter)
+        
+        
     }
 }

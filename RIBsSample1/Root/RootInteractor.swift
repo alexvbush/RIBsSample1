@@ -9,7 +9,6 @@ import RIBs
 import RxSwift
 
 protocol RootRouting: ViewableRouting {
-    // TODO: Declare methods the interactor can invoke to manage sub-tree via the router.
 }
 
 //protocol FirstRIBPresentable: Presentable where Listener == FirstRIBPresentableListener {

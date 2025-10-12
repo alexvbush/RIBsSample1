@@ -10,6 +10,7 @@ import RxSwift
 import Foundation
 
 nonisolated protocol FirstRIBRouting: ViewableRouting {
+    var firstRIBViewControllable: FirstRIBViewControllable { get }
     func routeToSecondRIB()
     func routeAwayFromSecondRIB()
     func routeToThirdRIB()
@@ -98,5 +99,9 @@ final class FirstRIBInteractor: PresentableInteractor<FirstRIBPresentable>, Firs
     
     private func doSomeAsyncStuff() async {
         
+    }
+    
+    func didComplete(_ interactor: ThirdRIBInteractable) {
+        router?.routeAwayFromThirdRIB()
     }
 }

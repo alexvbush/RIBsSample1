@@ -44,4 +44,8 @@ final class RootViewController: UIViewController, @MainActor RootPresentable, Ro
             bottomConstraint
         ])
     }
+    
+    func embedFirstRIBViewController2(_ firstViewControllable: any FirstRIBViewControllable) {
+        
+    }
 }
