@@ -17,10 +17,10 @@ protocol SecondRIBListener: AnyObject {
     // TODO: Declare methods the interactor can invoke to communicate with other RIBs.
 }
 
-nonisolated final class SecondRIBInteractor: Interactor, SecondRIBInteractable {
+nonisolated final class SecondRIBInteractor: Interactor, SecondRIBInteractable, @unchecked Sendable {
 
     weak var router: SecondRIBRouting?
-    nonisolated weak var listener: SecondRIBListener?
+    nonisolated(unsafe) weak var listener: SecondRIBListener?
 
     // TODO: Add additional dependencies to constructor. Do not perform any logic
     // in constructor.

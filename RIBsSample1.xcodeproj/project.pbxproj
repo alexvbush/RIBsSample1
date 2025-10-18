@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		7E538CE62E88981700F5ACDE /* RIBs in Frameworks */ = {isa = PBXBuildFile; productRef = 7E538CE52E88981700F5ACDE /* RIBs */; };
+		7E2C8DD32EA450BE00C4C5B7 /* RIBs in Frameworks */ = {isa = PBXBuildFile; productRef = 7E2C8DD22EA450BE00C4C5B7 /* RIBs */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,7 +69,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7E538CE62E88981700F5ACDE /* RIBs in Frameworks */,
+				7E2C8DD32EA450BE00C4C5B7 /* RIBs in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -146,7 +146,7 @@
 			);
 			name = RIBsSample1;
 			packageProductDependencies = (
-				7E538CE52E88981700F5ACDE /* RIBs */,
+				7E2C8DD22EA450BE00C4C5B7 /* RIBs */,
 			);
 			productName = RIBsSample1;
 			productReference = 7E538C822E88933B00F5ACDE /* RIBsSample1.app */;
@@ -231,7 +231,7 @@
 			mainGroup = 7E538C792E88933B00F5ACDE;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				7E538CC22E88951500F5ACDE /* XCLocalSwiftPackageReference "../RIBs-iOS/alexvbush/RIBs-iOS" */,
+				7E2C8DD12EA450BE00C4C5B7 /* XCRemoteSwiftPackageReference "RIBs-iOS" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 7E538C832E88933B00F5ACDE /* Products */;
@@ -617,17 +617,21 @@
 		};
 /* End XCConfigurationList section */
 
-/* Begin XCLocalSwiftPackageReference section */
-		7E538CC22E88951500F5ACDE /* XCLocalSwiftPackageReference "../RIBs-iOS/alexvbush/RIBs-iOS" */ = {
-			isa = XCLocalSwiftPackageReference;
-			relativePath = "../RIBs-iOS/alexvbush/RIBs-iOS";
+/* Begin XCRemoteSwiftPackageReference section */
+		7E2C8DD12EA450BE00C4C5B7 /* XCRemoteSwiftPackageReference "RIBs-iOS" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/alexvbush/RIBs-iOS";
+			requirement = {
+				branch = "swift-concurrency-isolation";
+				kind = branch;
+			};
 		};
-/* End XCLocalSwiftPackageReference section */
+/* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		7E538CE52E88981700F5ACDE /* RIBs */ = {
+		7E2C8DD22EA450BE00C4C5B7 /* RIBs */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 7E538CC22E88951500F5ACDE /* XCLocalSwiftPackageReference "../RIBs-iOS/alexvbush/RIBs-iOS" */;
+			package = 7E2C8DD12EA450BE00C4C5B7 /* XCRemoteSwiftPackageReference "RIBs-iOS" */;
 			productName = RIBs;
 		};
 /* End XCSwiftPackageProductDependency section */

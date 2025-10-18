@@ -12,7 +12,7 @@ protocol FirstRIBDependency: Dependency {
     // created by this RIB.
 }
 
-nonisolated final class FirstRIBComponent: Component<FirstRIBDependency>, SecondRIBDependency, ThirdRIBDependency {
+nonisolated final class FirstRIBComponent: Component<FirstRIBDependency>, SecondRIBDependency, ThirdRIBDependency, @unchecked Sendable {
     var secondRIBViewController: any SecondRIBViewControllable {
         viewController
     }
@@ -27,6 +27,11 @@ nonisolated final class FirstRIBComponent: Component<FirstRIBDependency>, Second
     
     var thirdRIBBuilder: ThirdRIBBuildable {
         ThirdRIBBuilder(dependency: self)
+    }
+    
+    
+    var myService: MyServicable {
+        shared { MyService() }
     }
 }
 
@@ -45,7 +50,7 @@ nonisolated protocol FirstRIBBuildable: Buildable {
     func build(withListener listener: FirstRIBListener) -> FirstRIBRouting {
         let component = FirstRIBComponent(dependency: dependency)
         let viewController = component.viewController
-        let interactor = FirstRIBInteractor(presenter: viewController)
+        let interactor = FirstRIBInteractor(presenter: viewController, myService: component.myService)
         interactor.listener = listener
         return FirstRIBRouter(interactor: interactor, viewController: viewController, secondRIBBuilder: component.secondRIBBuilder,
                               thirdRIBBuilder: component.thirdRIBBuilder)

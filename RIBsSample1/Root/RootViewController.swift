@@ -15,9 +15,9 @@ protocol RootPresentableListener: AnyObject {
     // interactor class.
 }
 
-final class RootViewController: UIViewController, @MainActor RootPresentable, RootViewControllable {
+final class RootViewController: UIViewController, RootPresentable, RootViewControllable {
     
-    /*nonisolated(unsafe)*/ weak var listener: RootPresentableListener?
+    nonisolated(unsafe) weak var listener: RootPresentableListener?
     
     init() {
         super.init(nibName: nil, bundle: nil)

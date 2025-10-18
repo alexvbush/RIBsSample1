@@ -34,7 +34,20 @@ final class FirstRIBViewController: UIViewController, FirstRIBPresentable, First
     }
     
     func presentStuff() {
-        
+        print("presentStuff")
+        if view.backgroundColor == .systemGreen {
+            
+            UIView.animate(withDuration: 0.5) {
+                print("red")
+                self.view.backgroundColor = .systemRed
+            }
+        } else {
+            
+            UIView.animate(withDuration: 0.5) {
+                print("green")
+                self.view.backgroundColor = .systemGreen
+            }
+        }
     }
     
     func attachThirRIBViewController(_ viewController: UIViewController) {

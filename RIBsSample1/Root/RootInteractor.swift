@@ -22,14 +22,14 @@ protocol RootListener: AnyObject {
     // TODO: Declare methods the interactor can invoke to communicate with other RIBs.
 }
 
-final class RootInteractor: PresentableInteractor<RootPresentable>, RootInteractable, RootPresentableListener {
+final class RootInteractor<Presenter: RootPresentable>: PresentableInteractor<Presenter>, RootInteractable, RootPresentableListener, @unchecked Sendable {
 
-    nonisolated weak var router: RootRouting?
+    nonisolated(unsafe) weak var router: RootRouting?
     weak var listener: RootListener?
 
     // TODO: Add additional dependencies to constructor. Do not perform any logic
     // in constructor.
-    override init(presenter: any RootPresentable) {
+    override init(presenter: Presenter) {
         super.init(presenter: presenter)
         presenter.listener = self
     }

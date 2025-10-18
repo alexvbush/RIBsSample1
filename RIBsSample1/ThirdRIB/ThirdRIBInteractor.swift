@@ -27,16 +27,16 @@ actor GlobalStateToTest {
     nonisolated(unsafe) static var subscription: Disposable? = nil
 }
 
-final class ThirdRIBInteractor: PresentableInteractor<ThirdRIBPresentable>, ThirdRIBInteractable, ThirdRIBPresentableListener {
+final class ThirdRIBInteractor<Presenter: ThirdRIBPresentable>: PresentableInteractor<Presenter>, ThirdRIBInteractable, ThirdRIBPresentableListener, @unchecked Sendable {
 
-    nonisolated weak var router: ThirdRIBRouting?
-    nonisolated weak var listener: ThirdRIBListener?
+    nonisolated(unsafe) weak var router: ThirdRIBRouting?
+    nonisolated(unsafe) weak var listener: ThirdRIBListener?
     
     private let backgroundScheduler = ConcurrentDispatchQueueScheduler(qos: .userInitiated)
 
     // TODO: Add additional dependencies to constructor. Do not perform any logic
     // in constructor.
-    override init(presenter: any ThirdRIBPresentable) {
+    override init(presenter: Presenter) {
         super.init(presenter: presenter)
         presenter.listener = self
     }
@@ -58,6 +58,7 @@ final class ThirdRIBInteractor: PresentableInteractor<ThirdRIBPresentable>, Thir
             .subscribe(onNext: { message in
                 print(self)
             })
+            .disposeOnDeactivate(interactor: self)
            
         presentOnMainThread { presenter in
 //            sfd
