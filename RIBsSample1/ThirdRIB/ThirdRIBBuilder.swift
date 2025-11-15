@@ -19,7 +19,7 @@ nonisolated final class ThirdRIBComponent: Component<ThirdRIBDependency> {
 
 // MARK: - Builder
 
-nonisolated protocol ThirdRIBBuildable: Buildable {
+protocol ThirdRIBBuildable: Buildable {
     func build(withListener listener: ThirdRIBListener) -> ThirdRIBRouting
 }
 
@@ -29,11 +29,23 @@ nonisolated final class ThirdRIBBuilder: Builder<ThirdRIBDependency>, ThirdRIBBu
         super.init(dependency: dependency)
     }
 
+//    func build(withListener listener: ThirdRIBListener) -> ThirdRIBRouting {
+//        _ = ThirdRIBComponent(dependency: dependency)
+//        let viewController = ThirdRIBViewController()
+//        let interactor = ThirdRIBInteractor(presenter: viewController)
+//        interactor.listener = listener
+//        return ThirdRIBRouter(interactor: interactor, viewController: viewController)
+//    }
+    
     func build(withListener listener: ThirdRIBListener) -> ThirdRIBRouting {
         _ = ThirdRIBComponent(dependency: dependency)
+        
+        // Create components - UI components will be created on MainActor when needed
         let viewController = ThirdRIBViewController()
         let interactor = ThirdRIBInteractor(presenter: viewController)
         interactor.listener = listener
-        return ThirdRIBRouter(interactor: interactor, viewController: viewController)
+        
+        let router = ThirdRIBRouter(interactor: interactor, viewController: viewController)
+        return router
     }
 }

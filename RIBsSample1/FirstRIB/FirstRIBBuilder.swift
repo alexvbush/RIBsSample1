@@ -6,6 +6,7 @@
 //
 
 import RIBs
+import Dispatch
 
 protocol FirstRIBDependency: Dependency {
     // TODO: Declare the set of dependencies required by this RIB, but cannot be
@@ -17,8 +18,11 @@ nonisolated final class FirstRIBComponent: Component<FirstRIBDependency>, Second
         viewController
     }
     
-    var viewController: FirstRIBViewController {
-        FirstRIBViewController()
+    nonisolated var viewController: FirstRIBViewController {
+        let viewController = DispatchQueue.main.sync {
+            return FirstRIBViewController()
+        }
+        return viewController
     }
 
     var secondRIBBuilder: SecondRIBBuildable {
@@ -41,13 +45,13 @@ nonisolated protocol FirstRIBBuildable: Buildable {
     func build(withListener listener: FirstRIBListener) -> FirstRIBRouting
 }
 
- final class FirstRIBBuilder: Builder<FirstRIBDependency>, FirstRIBBuildable {
+nonisolated final class FirstRIBBuilder: Builder<FirstRIBDependency>, FirstRIBBuildable {
 
     override init(dependency: FirstRIBDependency) {
         super.init(dependency: dependency)
     }
 
-    func build(withListener listener: FirstRIBListener) -> FirstRIBRouting {
+    nonisolated func build(withListener listener: FirstRIBListener) -> FirstRIBRouting {
         let component = FirstRIBComponent(dependency: dependency)
         let viewController = component.viewController
         let interactor = FirstRIBInteractor(presenter: viewController, myService: component.myService)

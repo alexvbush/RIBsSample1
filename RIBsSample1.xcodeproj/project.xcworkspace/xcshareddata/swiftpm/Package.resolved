@@ -1,22 +1,13 @@
 {
-  "originHash" : "9b87bab7c76be6104e260966b17dbb5ab13d59333d411d8d1d2afd0ed484b1be",
+  "originHash" : "2160343b2e6a9b0d605be11d6dea9ce68380d3d542bd7fe4f1c89c9feac12d73",
   "pins" : [
-    {
-      "identity" : "ribs-ios",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/alexvbush/RIBs-iOS",
-      "state" : {
-        "branch" : "swift-concurrency-isolation",
-        "revision" : "acbaea93a8c76be2efc2d2e1f0ce3ac83951c231"
-      }
-    },
     {
       "identity" : "rxswift",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/ReactiveX/RxSwift",
       "state" : {
-        "revision" : "5dd1907d64f0d36f158f61a466bab75067224893",
-        "version" : "6.9.0"
+        "revision" : "5004a18539bd68905c5939aa893075f578f4f03d",
+        "version" : "6.9.1"
       }
     }
   ],

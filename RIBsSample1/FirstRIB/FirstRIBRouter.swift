@@ -17,7 +17,7 @@ protocol FirstRIBViewControllable: ViewControllable, SecondRIBViewControllable {
     func attachThirRIBViewController(_ viewController: UIViewController)
 }
 
-final class FirstRIBRouter: ViewableRouter<FirstRIBInteractable, FirstRIBViewControllable>, FirstRIBRouting, SendableMetatype, @unchecked Sendable {
+final class FirstRIBRouter: ViewableRouter<FirstRIBInteractable, FirstRIBViewControllable>, FirstRIBRouting, @unchecked Sendable {
     
     private let secondRIBBuilder: SecondRIBBuildable
     private var secondRIBRouter: SecondRIBRouting?
@@ -132,9 +132,12 @@ final class FirstRIBRouter: ViewableRouter<FirstRIBInteractable, FirstRIBViewCon
         if let thirdRIBRouter = thirdRIBRouter {
             self.thirdRIBRouter = nil
             
+            // Capture thirdRIBRouter outside the async context to avoid compiler issues
+            let routerToDetach = thirdRIBRouter
+            
             navigateOnMainThread { thisRouterViewController in
                 thisRouterViewController.uiviewController.dismiss(animated: true) { [weak self] in
-                    self?.detachChild(thirdRIBRouter)
+                    self?.detachChild(routerToDetach)
                 }
             }
         }

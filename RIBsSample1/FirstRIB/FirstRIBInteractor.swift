@@ -17,20 +17,20 @@ nonisolated protocol FirstRIBRouting: ViewableRouting {
     func routeAwayFromThirdRIB()
 }
 
-//protocol FirstRIBPresentable: Presentable where Listener == FirstRIBPresentableListener {
-//    func presentStuff()
-//}
-protocol FirstRIBPresentable: Presentable {
-    nonisolated var listener: FirstRIBPresentableListener? { get set }
-
+protocol FirstRIBPresentable: Presentable where Listener == FirstRIBPresentableListener {
     func presentStuff()
 }
+//protocol FirstRIBPresentable: Presentable {
+//    nonisolated var listener: FirstRIBPresentableListener? { get set }
+//
+//    func presentStuff()
+//}
 
 protocol FirstRIBListener: AnyObject {
     // TODO: Declare methods the interactor can invoke to communicate with other RIBs.
 }
 
-nonisolated final class FirstRIBInteractor<Presenter: FirstRIBPresentable>: PresentableInteractor<Presenter>, FirstRIBInteractable, FirstRIBPresentableListener, @unchecked Sendable {
+final class FirstRIBInteractor<Presenter: FirstRIBPresentable>: PresentableInteractor<Presenter>, FirstRIBInteractable, FirstRIBPresentableListener, @unchecked Sendable {
     
     nonisolated(unsafe) weak var router: FirstRIBRouting?
     nonisolated(unsafe) weak var listener: FirstRIBListener?
@@ -43,7 +43,6 @@ nonisolated final class FirstRIBInteractor<Presenter: FirstRIBPresentable>: Pres
         self.myService = myService
         super.init(presenter: presenter)
         presenter.listener = self
-//        presenter.listener = Observable.just(1)
     }
     
     override func didBecomeActive() {
@@ -61,7 +60,7 @@ nonisolated final class FirstRIBInteractor<Presenter: FirstRIBPresentable>: Pres
         
         Task {
             try await Task.sleep(for: .seconds(2))
-//            await presenter.presentStuff()
+            await presenter.presentStuff()
 //            presenter.presentStuff()
             
             await test3()
@@ -108,9 +107,8 @@ nonisolated final class FirstRIBInteractor<Presenter: FirstRIBPresentable>: Pres
         
 //        nonisolated(unsafe) let presenter = self.presenter
 //        nonisolated(unsafe) let self1 = self
+        
         Task {
-//            nonisolated(unsafe) let presenter1 = presenter
-            
             try? await Task.sleep(for: .seconds(2))
             
             await MainActor.run {
@@ -118,7 +116,6 @@ nonisolated final class FirstRIBInteractor<Presenter: FirstRIBPresentable>: Pres
             }
             
             await presenter.presentStuff()
-//            presenter.presentStuff()
             
             Task { @MainActor in
                 presenter.presentStuff()
@@ -133,19 +130,13 @@ nonisolated final class FirstRIBInteractor<Presenter: FirstRIBPresentable>: Pres
 //            presenter.presentStuff()
 //        }
         
-        
         Observable.just(1)
             .subscribe(on: backgroundScheduler)
             .observe(on: MainScheduler.instance)
             .subscribe(onNext: { _  in
-                nonisolated(unsafe) let presenter = self.presenter
-                Task { @MainActor in
-                    presenter.presentStuff()
-                }
                 
                 self.presentOnMainThread { presenter in
                     presenter.presentStuff()
-                    self.presenter.presentStuff()
                 }
                 
             }).disposeOnDeactivate(interactor: self)
